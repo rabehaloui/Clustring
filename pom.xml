@@ -56,7 +56,6 @@
             <artifactId>spark-mllib_${scala.version.maj}</artifactId>
             <version>${spark.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
