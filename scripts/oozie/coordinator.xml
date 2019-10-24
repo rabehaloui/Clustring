@@ -1,0 +1,23 @@
+<coordinator-app name="${oozieCoordinatorDisplayName}"
+                 frequency="${coord:days(1)}"
+                 start="${startDate}"
+                 end="${endDate}"
+                 timezone="Europe/Paris"
+                 xmlns="uri:oozie:coordinator:0.4">
+    <controls>
+        <timeout>${ClusteringTimeout}</timeout>
+        <execution>${ClusteringExecution}</execution>
+    </controls>
+
+    <action>
+        <workflow>
+            <app-path>${workflowPath}/workflow.xml</app-path>
+            <configuration>
+                <property>
+                    <name>brisbaneCityBikePath</name>
+                    <value>${brisbaneCityBikeRoot}/${YEAR}${MONTH}${DAY}/Brisbane_CityBike.json</value>
+                </property>
+            </configuration>
+        </workflow>
+    </action>
+</coordinator-app>

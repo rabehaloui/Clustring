@@ -1,0 +1,46 @@
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="${oozieWorkflowDisplayName}">
+    <global>
+        <job-tracker>${oozieJobTracker}</job-tracker>
+        <name-node>${oozieNameNode}</name-node>
+        <configuration>
+            <property>
+                <name>oozie.launcher.mapred.job.queue.name</name>
+                <value>${oozieQueue}</value>
+            </property>
+            <property>
+                <name>oozie.use.system.libpath</name>
+                <value>true</value>
+            </property>
+        </configuration>
+    </global>
+
+    <start to="submit-spark-job"/>
+
+    <action name="submit-spark-job">
+        <spark xmlns="uri:oozie:spark-action:0.2">
+            <master>${sparkMaster}</master>
+            <mode>${sparkMode}</mode>
+            <name>${appName}</name>
+            <class>${sparkMainClass}</class>
+            <jar>${sparkJarPath}</jar>
+            <spark-opts>
+                --queue ${clusteringYarnQueue}
+                --executor-memory ${sparkExecutorMemory}
+                --num-executors ${sparkNumExecutors}
+                --executor-cores ${sparkExecutorCores}
+                --driver-memory ${sparkDriverMemory}
+            </spark-opts>
+            <file>${confFile}</file>
+        </spark>
+        <ok to="end"/>
+        <error to="fail"/>
+    </action>
+
+    <kill name="fail">
+        <message>
+            Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]
+        </message>
+    </kill>
+
+    <end name="end"/>
+</workflow-app>

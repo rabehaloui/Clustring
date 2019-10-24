@@ -1,0 +1,44 @@
+<assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.5.3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.5.3 http://maven.apache.org/xsd/assembly-2.5.3.xsd">
+    <id>bundle</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>${project.basedir}/target/</directory>
+            <outputDirectory>spark</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}/scripts/oozie/</directory>
+            <outputDirectory>oozie</outputDirectory>
+            <includes>
+                <include>workflow.xml</include>
+                <include>coordinator.xml</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}/scripts/deploy/</directory>
+            <outputDirectory>deploy</outputDirectory>
+            <includes>
+                <include>run.sh</include>
+                <include>run_oozie.sh</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>${project.basedir}/scripts/conf/</directory>
+            <outputDirectory>conf</outputDirectory>
+            <includes>
+                <include>application.properties</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
